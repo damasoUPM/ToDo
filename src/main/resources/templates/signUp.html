@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign Up</title>
+    <!-- Enlace al archivo CSS específico para el registro -->
+    <link rel="stylesheet" href="/css/register.css" />
+</head>
+<body>
+<div class="wrapper">
+    <h1>Register</h1>
+
+    <form th:action="@{/signup}" method="post" th:object="${userDto}">
+        <div class="input-field">
+            <input type="text" th:field="*{username}" required />
+            <label>Username</label>
+        </div>
+
+        <div class="input-field">
+            <input type="email" th:field="*{email}" required />
+            <label>Email</label>
+        </div>
+
+        <div class="input-field">
+            <input type="password" th:field="*{password}" required />
+            <label>Password</label>
+        </div>
+
+        <div class="input-field">
+            <input type="password" th:field="*{confirmPassword}" required />
+            <label>Confirm Password</label>
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <div th:if="${errorMatch}" class="error-message" th:text="${errorMatch}"></div>
+        <div th:if="${errorConfirm}" class="error-message" th:text="${errorConfirm}"></div>
+
+    </form>
+
+    <p class="register"><a th:href="@{/login}">Back to login</a></p>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.example.demo.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "users")
 public class User {
 
     @Id
@@ -19,15 +21,16 @@ public class User {
 
     private String username;
     private String bio;
+    private String email;
+    private String password;
     private String profilePictureUrl;
 
-    private int scorePointsDoing;
+    private int scorePointsDoing ;
     public enum doRoles{SCROLLING_PRO,NORMAL,GRINDER,HARD_GRINDER,OBSESSIVE}
     @Enumerated(EnumType.STRING)
     private doRoles doRole;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Task> tasks;
-
+    private List<Task> tasks = new  ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Note> restNotes;
+    private List<Note> restNotes = new  ArrayList<>();
 }
