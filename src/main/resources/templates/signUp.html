@@ -9,7 +9,7 @@
 <div class="wrapper">
     <h1>Register</h1>
 
-    <form th:action="@{/signup}" method="post" th:object="${userDto}">
+    <form th:action="@{/signUp}" method="post" th:object="${userDto}">
         <div class="input-field">
             <input type="text" th:field="*{username}" required />
             <label>Username</label>

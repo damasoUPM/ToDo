@@ -4,27 +4,31 @@ import com.example.demo.Exceptions.UserAlreadyExistsException;
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserDto;
 import com.example.demo.Services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 @Controller
 public class AuthController {
+    @Autowired
     private UserService userService;
     @GetMapping("/login")
     public String loginPage() {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/signUp")
     public String signupPage(Model model) {
         model.addAttribute("userDto", new UserDto());
+        System.out.println("signup bien funciona");
         return "signUp";
     }
 
     @PostMapping("/signUp")
     public String processRegister(@ModelAttribute("userDto") UserDto userDto, Model model ) {
         try {
+            System.out.println(userDto.toString());
             if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
                 model.addAttribute("errorMatch", "Passwords do not match");
                 return "signup";
