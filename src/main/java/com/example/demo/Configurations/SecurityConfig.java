@@ -7,27 +7,28 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
 
-
+    @Autowired
     private UserService userDetailsService;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 //REGISTER,LOGIN y los archivos estaticos los permito para lo demas hay que autentificarse
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login","process-login", "/css/**", "/js/**","/signUp","/h2-console/**").permitAll()
+                        .requestMatchers("/login", "/login", "/css/**", "/js/**","/signUp","/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login") // tu página personalizada
-                        .defaultSuccessUrl("/home", true) // a dónde va después de login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/loginError")
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -37,19 +38,16 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    /*
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder())
-                .and()
-                .build();
-    }
+   @Bean
+   public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+       AuthenticationManagerBuilder authenticationManagerBuilder =
+               http.getSharedObject(AuthenticationManagerBuilder.class);
 
-*/
+       authenticationManagerBuilder
+               .userDetailsService(userDetailsService)
+               .passwordEncoder(passwordEncoder);
+
+       return authenticationManagerBuilder.build();
+   }
+
 }

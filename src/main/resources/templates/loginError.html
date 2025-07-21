@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Error de Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .error-box {
+            background: white;
+            padding: 30px;
+            border: 2px solid #ff4c4c;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 {
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            background: #ff4c4c;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+<div class="error-box">
+    <h1>¡Error al iniciar sesión!</h1>
+    <p>El usuario o la contraseña son incorrectos.</p>
+    <a href="/login">Volver al login</a>
+</div>
+</body>
+</html>

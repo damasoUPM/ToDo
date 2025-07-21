@@ -1,20 +1,24 @@
 package com.example.demo.Services;
 
 import com.example.demo.Exceptions.UserAlreadyExistsException;
+import com.example.demo.Exceptions.WrongCredentialsException;
 import com.example.demo.Model.User;
 import com.example.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService  {
+public class UserService implements UserDetailsService {
+
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public void  signUp(User user) {
 
@@ -52,12 +56,19 @@ public class UserService  {
         return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
 
-    public void signIn(String username, String password) {
-        User userFound = userRepository.findByUsername(username);
-        if (userFound != null && passwordEncoder.matches(password, userFound.getPassword())){
-
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
         }
 
+        // Adaptamos tu clase User a un objeto UserDetails
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword()) // ya está encriptado
+                .roles("USER") // o puedes personalizar roles
+                .build();
     }
 }

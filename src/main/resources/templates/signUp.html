@@ -35,8 +35,12 @@
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
-        <div th:if="${errorMatch}" class="error-message" th:text="${errorMatch}"></div>
-        <div th:if="${errorConfirm}" class="error-message" th:text="${errorConfirm}"></div>
+        <div th:if="${errorMatch}" class="errorMatch" th:text="${errorMatch}">
+            <p th:text="${errorMatch}"></p>
+        </div>
+        <div th:if="${errorConfirm}" class="errorConfirm">
+            <p th:text="${errorConfirm}"></p>
+        </div>
 
     </form>
 

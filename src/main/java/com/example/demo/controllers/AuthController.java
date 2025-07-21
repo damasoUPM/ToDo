@@ -5,25 +5,18 @@ import com.example.demo.Model.User;
 import com.example.demo.Model.UserDto;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 @Controller
 public class AuthController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private UserService userService;
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
 
-    @GetMapping("/signUp")
-    public String signupPage(Model model) {
-        model.addAttribute("userDto", new UserDto());
-        System.out.println("signup bien funciona");
-        return "signUp";
-    }
 
     @PostMapping("/signUp")
     public String processRegister(@ModelAttribute("userDto") UserDto userDto, Model model ) {
