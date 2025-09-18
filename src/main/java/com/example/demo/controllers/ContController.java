@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Model.UserDto;
+import com.example.demo.Model.Dto.UserDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +20,15 @@ public class ContController {
     @GetMapping("/signUp")
     public String signupPage(Model model) {
         model.addAttribute("userDto", new UserDto());
-        System.out.println("signup bien funciona");
         return "signUp";
     }
     @GetMapping("/logout")
     public String logoutPage() {
         return "logout";
     }
-    @GetMapping("/home")
-    public String homePage() {
-        return "home";
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
     }
+
 }

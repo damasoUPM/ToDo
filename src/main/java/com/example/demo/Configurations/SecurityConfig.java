@@ -22,12 +22,12 @@ public class SecurityConfig {
         http
                 //REGISTER,LOGIN y los archivos estaticos los permito para lo demas hay que autentificarse
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/login", "/css/**", "/js/**","/signUp","/h2-console/**").permitAll()
+                        .requestMatchers("/login", "/login", "/css/**", "/js/**","/signUp").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/tasks", true)
                         .failureUrl("/loginError")
                         .permitAll()
                 )

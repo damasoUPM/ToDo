@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.Exceptions.UserAlreadyExistsException;
 import com.example.demo.Model.User;
-import com.example.demo.Model.UserDto;
+import com.example.demo.Model.Dto.UserDto;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

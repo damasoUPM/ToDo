@@ -26,12 +26,12 @@ public class Task {
     private priority priority;
 
     private boolean completed;
-    private boolean confirmedLate;
 
     private LocalDateTime createdAt;
-    private LocalDateTime confirmedAt;
+    private LocalDateTime completedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 }

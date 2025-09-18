@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Task</title>
+    <!-- Enlace al archivo CSS específico para tasks -->
+    <link rel="stylesheet" href="/css/createTask.css" />
+</head>
+<body>
+<div class="wrapper">
+    <h1>Create Task</h1>
+
+    <form th:action="@{/tasks/create}" method="post" th:object="${taskDto}">
+
+        <div class="input-field">
+            <input type="text" th:field="*{title}" required />
+            <label>Title</label>
+        </div>
+
+        <div class="input-field">
+            <input type="text" th:field="*{description}" required />
+            <label>Description</label>
+        </div>
+
+        <div class="input-field">
+            <input type="datetime-local" th:field="*{deadline}" required />
+            <label>Deadline</label>
+        </div>
+
+        <div class="input-field">
+            <select th:field="*{priority}" required>
+                <option value="" disabled selected>Select priority</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+                <option value="VERY_HIGH">Very High</option>
+            </select>
+            <label>Priority</label>
+        </div>
+
+        <button type="submit">Create Task</button>
+
+        <!-- Bloques para mostrar errores de validación -->
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <div th:if="${errorDeadline}" class="error-message">
+            <p th:text="${errorDeadline}"></p>
+        </div>
+    </form>
+
+    <p class="register"><a th:href="@{/tasks}">Back to tasks</a></p>
+</div>
+</body>
+</html>
